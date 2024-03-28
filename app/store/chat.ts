@@ -97,14 +97,14 @@ function getSummarizeModel(currentModel: string) {
   const model = DEFAULT_MODELS.find((m) => m.name === currentModel);
   console.log("model", model);
   if (!model) return currentModel;
-  if (model.provider.providerType === "google") return GEMINI_SUMMARIZE_MODEL;
+  // if (model.provider.providerType === "google") return GEMINI_SUMMARIZE_MODEL;
   // if it is using gpt-* models, force to use 3.5 to summarize
   if (currentModel.startsWith("gpt")) {
     return SUMMARIZE_MODEL;
   }
-  if (currentModel.startsWith("gemini-pro")) {
-    return GEMINI_SUMMARIZE_MODEL;
-  }
+  // if (currentModel.startsWith("gemini-pro")) {
+  //   return GEMINI_SUMMARIZE_MODEL;
+  // }
   return currentModel;
 }
 
@@ -541,7 +541,7 @@ export const useChatStore = createPersistStore(
               }),
             ]
           : [];
-        if (shouldInjectSystemPrompts) {
+        if (shouldInjectSystemPrompts && false) {
           console.log(
             "[Global System Prompt] ",
             systemPrompts.at(0)?.content ?? "empty",

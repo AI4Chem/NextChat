@@ -1,0 +1,12 @@
+model_list: 
+  - model_name: gpt-3.5-turbo # user-facing model alias
+    litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
+      model: gpt-3.5-turbo
+      api_base: http://10.140.24.111:10085/v1
+      api_key: sk-anything
+
+litellm_settings:
+  cache: True          # set cache responses to True
+  cache_params:        # set cache params for s3
+    type: gptcache
+    local_only: Ture

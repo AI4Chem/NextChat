@@ -8,7 +8,7 @@ const tw = {
   Error: {
     Unauthorized: isApp
       ? "檢測到無效 API Key，請前往[設定](/#/settings)頁檢查 API Key 是否設定正確。"
-      : "訪問密碼不正確或為空，請前往[登入](/#/auth)頁輸入正確的訪問密碼，或者在[設定](/#/settings)頁填入你自己的 OpenAI API Key。",
+      : "欢迎来到ChemLLM, Have a Chemical Day!",
   },
 
   Auth: {
