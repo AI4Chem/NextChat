@@ -505,7 +505,7 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
 
         return {
-          role: "system",
+          role: "user",
           content:
             session.memoryPrompt.length > 0
               ? Locale.Store.Prompt.History(session.memoryPrompt)
@@ -530,18 +530,19 @@ export const useChatStore = createPersistStore(
           session.mask.modelConfig.model.startsWith("gpt-");
 
         var systemPrompts: ChatMessage[] = [];
-        systemPrompts = shouldInjectSystemPrompts
-          ? [
-              createMessage({
-                role: "system",
-                content: fillTemplateWith("", {
-                  ...modelConfig,
-                  template: DEFAULT_SYSTEM_TEMPLATE,
+        systemPrompts =
+          shouldInjectSystemPrompts || true
+            ? [
+                createMessage({
+                  role: "user",
+                  content: fillTemplateWith("", {
+                    ...modelConfig,
+                    template: DEFAULT_SYSTEM_TEMPLATE,
+                  }),
                 }),
-              }),
-            ]
-          : [];
-        if (shouldInjectSystemPrompts && false) {
+              ]
+            : [];
+        if (shouldInjectSystemPrompts) {
           console.log(
             "[Global System Prompt] ",
             systemPrompts.at(0)?.content ?? "empty",
@@ -557,6 +558,7 @@ export const useChatStore = createPersistStore(
         const longTermMemoryPrompts = shouldSendLongTermMemory
           ? [get().getMemoryPrompt()]
           : [];
+        console.log(longTermMemoryPrompts);
         const longTermMemoryStartIndex = session.lastSummarizeIndex;
 
         // short term memory
@@ -701,7 +703,7 @@ export const useChatStore = createPersistStore(
           api.llm.chat({
             messages: toBeSummarizedMsgs.concat(
               createMessage({
-                role: "system",
+                role: "user",
                 content: Locale.Store.Prompt.Summarize,
                 date: "",
               }),

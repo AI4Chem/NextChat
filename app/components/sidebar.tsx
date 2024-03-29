@@ -264,10 +264,24 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
           <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://huggingface.co/AI4Chem/ChemLLM-7B-Chat"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IconButton icon={<GithubIcon />} shadow />
             </a>
           </div>
+        </div>
+        <div>
+          <IconButton
+            icon={<AddIcon />}
+            text={shouldNarrow ? undefined : "PDF"}
+            onClick={() => {
+              window.location.href = "https://chatpdf.chemllm.org";
+            }}
+            shadow
+          />
         </div>
         <div>
           <IconButton

@@ -364,12 +364,9 @@ const tw = {
     BotHello: "請問需要我的協助嗎？",
     Error: "出錯了，請稍後再嘗試",
     Prompt: {
-      History: (content: string) =>
-        "這是 AI 與使用者的歷史聊天總結，作為前情提要：" + content,
-      Topic:
-        "Use the language used by the user (e.g. en for english conversation, zh-hant for chinese conversation, etc.) to generate a title (at most 6 words) summarizing our conversation without any lead-in, quotation marks, preamble like 'Title:', direct text copies, single-word replies, quotation marks, translations, or brackets. Remove enclosing quotation marks. The title should make third-party grasp the essence of the conversation in first sight.",
-      Summarize:
-        "Use the language used by the user (e.g. en-us for english conversation, zh-hant for chinese conversation, etc.) to summarise the conversation in at most 200 words. The summary will be used as prompt for you to continue the conversation in the future.",
+      History: (content: string) => "我们之前聊了：\n" + content,
+      Topic: "用简练的语言为这场对话总结一个凝练的标题。",
+      Summarize: "总结聊天内容，越精炼越好",
     },
   },
   Copy: {
