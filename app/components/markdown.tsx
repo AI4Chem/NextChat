@@ -8,6 +8,8 @@ import RehypeHighlight from "rehype-highlight";
 import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
+import "katex/contrib/mhchem";
+import "katex/contrib/auto-render";
 
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
@@ -152,6 +154,7 @@ function _MarkDownContent(props: { content: string }) {
 }
 
 export const MarkdownContent = React.memo(_MarkDownContent);
+import { MathpixMarkdown, MathpixLoader } from "mathpix-markdown-it";
 
 export function Markdown(
   props: {
@@ -175,11 +178,15 @@ export function Markdown(
       onDoubleClickCapture={props.onDoubleClickCapture}
       dir="auto"
     >
-      {props.loading ? (
-        <LoadingIcon />
-      ) : (
-        <MarkdownContent content={props.content} />
-      )}
+      {
+        props.loading ? (
+          <LoadingIcon />
+        ) : (
+          <MathpixLoader>
+            <MathpixMarkdown text={props.content} htmlTags={true} />
+          </MathpixLoader>
+        ) //(<MarkdownContent content={props.content} />)
+      }
     </div>
   );
 }
