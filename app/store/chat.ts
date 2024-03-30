@@ -530,18 +530,17 @@ export const useChatStore = createPersistStore(
           session.mask.modelConfig.model.startsWith("gpt-");
 
         var systemPrompts: ChatMessage[] = [];
-        systemPrompts =
-          shouldInjectSystemPrompts || true
-            ? [
-                createMessage({
-                  role: "user",
-                  content: fillTemplateWith("", {
-                    ...modelConfig,
-                    template: DEFAULT_SYSTEM_TEMPLATE,
-                  }),
+        systemPrompts = shouldInjectSystemPrompts // || true
+          ? [
+              createMessage({
+                role: "user",
+                content: fillTemplateWith("", {
+                  ...modelConfig,
+                  template: DEFAULT_SYSTEM_TEMPLATE,
                 }),
-              ]
-            : [];
+              }),
+            ]
+          : [];
         if (shouldInjectSystemPrompts) {
           console.log(
             "[Global System Prompt] ",
