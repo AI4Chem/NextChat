@@ -36,6 +36,7 @@ upload PDFs and DOCX files, and then interact with their content using natural l
 
 
 import os
+import time
 
 import streamlit as st
 from docx import Document
@@ -62,6 +63,8 @@ os.environ["OPENAI_API_KEY"] = "sk-123"
 os.environ["OPENAI_API_BASE"] = "http://10.140.24.111:10086/v1"
 
 import chromadb
+import chromadb.utils.embedding_functions as embedding_functions
+openai_ef = embedding_functions.OpenAIEmbeddingFunction("sk-123",api_base="http://10.140.24.111:10086/v1")
 chroma_client = chromadb.Client()
 
 
@@ -164,7 +167,7 @@ class Bot:
         pass
 
     def create_indexing(self,text_chunks):
-        collection = chroma_client.create_collection(name='a'+str(hash(tuple(text_chunks)))[1:24] + 'b')
+        collection = chroma_client.create_collection(name='a'+str(int(hash(tuple(text_chunks) )) + int(time.time()))[1:24] + 'b',embedding_function=openai_ef)
         print(len(text_chunks))
         collection.add(documents=text_chunks,ids=[str(i) for i,ix in enumerate(text_chunks)])
         return collection
